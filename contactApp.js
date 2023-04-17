@@ -70,7 +70,9 @@ function processAdd(results) {
     document.getElementById("addfirst").value = "";
     document.getElementById("addlast").value = "";
     document.getElementById("addphone").value = "";
-
+    ------------------
+    document.getElementbyId("addemail").value= "";
+    ------------------
     findMatches(" ");
 
 }
@@ -79,7 +81,7 @@ function addContact() {
     console.log("Attempting to add an entry");
     console.log("Firstname:" + $('#addfirst').val());
     $('#searchresults').empty();
-    fetch(baseUrl + '/contact/add/' + $('#addfirst').val() + "/" + $('#addlast').val() + "/" + $('#addphone').val() + "/" + $('#addtype').text(), {
+    fetch(baseUrl + '/contact/add/' + $('#addfirst').val() + "/" + $('#addlast').val() + "/" + $('#addphone').val() + "/" + $('#addemail').val() + "/" + $('#addtype').text(), {
             method: 'get'
         })
         .then(response => response.json())
@@ -101,7 +103,11 @@ function editContact(row) {
 	document.getElementById("editfirst").value = contactList[row]["first"];
 	document.getElementById("editlast").value = contactList[row]["last"];
 	document.getElementById("editphone").value = contactList[row]["phone"];
+	-------
+	document.getElementbyId("editemail").value = contactList[row]["email"];
+	-----
 	document.getElementById("edittype").innerText = contactList[row]["type"];
+	
 	
 	//Save ID in modal
 	var modal = document.querySelector("#editContact");
@@ -119,7 +125,7 @@ function updateContact() {
     console.log("Attempting to edit an entry:"+id); 
 
     fetch(baseUrl + '/contact/update/' + id + '/' + document.getElementById("editfirst").value 
-    		+ '/' + document.getElementById("editlast").value + '/' + document.getElementById("editphone").value + '/' + document.getElementById("edittype").innerText, {
+    		+ '/' + document.getElementById("editlast").value + '/' + document.getElementById("editphone").value + '/' + document.getElementbyId("editemail").value + '/' + document.getElementById("edittype").innerText, {
                 method: 'get'
             })
         .then(alert("Record for " + document.getElementById("editfirst").value + ' ' + document.getElementById("editlast").value + " updated"))
