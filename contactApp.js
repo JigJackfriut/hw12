@@ -104,9 +104,7 @@ function editContact(row) {
 	document.getElementById("editlast").value = contactList[row]["last"];
 	document.getElementById("editphone").value = contactList[row]["phone"];
 	document.getElementById("edittype").innerText = contactList[row]["type"];
-	-------
-	document.getElementbyId("editemail").value = contactList[row]["email"];
-	-----
+
 	
 	
 	//Save ID in modal
