@@ -21,7 +21,7 @@ int main(){
     cout << "Contacts test program" << endl;
 
     cout << "Select an option (1-search first, 2-search last, 3-search type, 4-add, 5-edit, 6-delete, 7-end): ";
-    cin >> o;
+    getline(cin,o);
 
     while (o!="7") {
       if (o=="1") {
@@ -57,20 +57,24 @@ int main(){
       } else if (o=="4") {
 
         cout <<"Enter a first name to add: ";
-        string first,last,phone,type;
+        string first,last,phone,type,email,age;
         getline(cin,first);
         cout << "Enter a last name to add: ";
         getline(cin,last);
         cout << "Enter a phone number: ";
         getline(cin,phone);
-        cout << "lastly, end a type: ";
+        cout << "Enter a type: ";
         getline(cin,type);;
+        cout << "Enter an email: ";
+        getline(cin,phone);
+        cout << "Enter an age: ";
+        getline(cin,phone);
 
-        ctdb.addEntry(first,last,phone,type);
+        ctdb.addEntry(first,last,phone,type,email,age);
         cout << "Entry added" << endl;
 
       } else if (o=="5") {
-        string first,last,phone,type, IDnum;
+        string first,last,phone,type,email,age, IDnum;
         cout << "Leave blank to keep same."  << endl;
         cout << "Enter an ID number to edit: ";
         getline(cin,IDnum);
@@ -93,11 +97,19 @@ int main(){
         	getline(cin,phone);
         	if (phone.size()>0) entry.phone = phone;
         	
+        	cout << "Enter a new email("+entry.email+"): ";
+        	getline(cin,email);
+        	if (email.size()>0) entry.email = email;
+        	
+        	cout << "Enter a new age ("+entry.age+"): ";
+        	getline(cin,phone);
+        	if (age.size()>0) entry.age = age;
+        	
         	cout << "Enter a new type("+entry.type+"): ";
         	getline(cin,type);
         	if (type.size()>0) entry.type = type;
         	
-        	ctdb.editEntry(entry.ID,entry.first,entry.last,entry.phone,entry.type);
+        	ctdb.editEntry(entry.ID,entry.first,entry.last,entry.phone,entry.type,entry.email,entry.age);
         	cout << "Done!" << endl;
         }
       } else if (o=="6") {
