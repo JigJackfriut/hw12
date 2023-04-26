@@ -93,33 +93,55 @@ int main() {
     	res.status = 200;
   	});  
   	
-  	svr.Get(R"(/contact/add/(.*)/(.*)/(.*)/(.*)/(.*))", [&](const httplib::Request& req, httplib::Response& res) {
+  	svr.Get(R"(/contact/email/(.*))", [&](const httplib::Request& req, httplib::Response& res) {
+    	res.set_header("Access-Control-Allow-Origin","*");
+
+    	string type = req.matches[1];
+    	results = ctdb.findByEmail(email);
+    	string json = jsonResults(results);
+    	cout << "type: " << json << endl;
+    	res.set_content(json, "text/json");
+    	res.status = 200;
+  	});  
+  	
+  	svr.Get(R"(/contact/age/(.*))", [&](const httplib::Request& req, httplib::Response& res) {
+    	res.set_header("Access-Control-Allow-Origin","*");
+
+    	string type = req.matches[1];
+    	results = ctdb.findByAge(age);
+    	string json = jsonResults(results);
+    	cout << "type: " << json << endl;
+    	res.set_content(json, "text/json");
+    	res.status = 200;
+  	});  
+  	
+  	
+  	svr.Get(R"(/contact/add/(.*)/(.*)/(.*)/(.*))", [&](const httplib::Request& req, httplib::Response& res) {
     	res.set_header("Access-Control-Allow-Origin","*");
 
     	string first = req.matches[1];
     	string last = req.matches[2];
     	string phone = req.matches[3];
-	string type = req.matches[4];
-	-----
+    	string type = req.matches[4];
     	string email = req.matches[5];
-    	ctdb.addEntry(first,last,phone,type,email);
+    	string age = req.matches[6];
+    	ctdb.addEntry(first,last,phone,type,email,age);
 
     	res.set_content("{\"status\":\"success\"}", "text/json");
     	res.status = 200;
   	}); 	
  
-   	svr.Get(R"(/contact/update/(.*)/(.*)/(.*)/(.*)/(.*)/(.*))", [&](const httplib::Request& req, httplib::Response& res) {
+   	svr.Get(R"(/contact/update/(.*)/(.*)/(.*)/(.*)/(.*))", [&](const httplib::Request& req, httplib::Response& res) {
     	res.set_header("Access-Control-Allow-Origin","*");
 
     	string ID = req.matches[1];
     	string first = req.matches[2];
     	string last = req.matches[3];
     	string phone = req.matches[4];
-	-----
-	string type = req.matches[5];
-	-----
+    	string type = req.matches[5];
     	string email = req.matches[6];
-    	ctdb.editEntry(ID,first,last,phone,type,email);
+    	string age = req.matches[7];
+    	ctdb.editEntry(ID,first,last,phone,type,email,age);
 
     	res.set_content("{\"status\":\"success\"}", "text/json");
     	res.status = 200;
