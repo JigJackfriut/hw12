@@ -96,8 +96,8 @@ int main() {
   	svr.Get(R"(/contact/email/(.*))", [&](const httplib::Request& req, httplib::Response& res) {
     	res.set_header("Access-Control-Allow-Origin","*");
 
-    	string type = req.matches[1];
-    	results = ctdb.findByEmail(type);
+    	string email = req.matches[1];
+    	results = ctdb.findByEmail(email);
     	string json = jsonResults(results);
     	cout << "type: " << json << endl;
     	res.set_content(json, "text/json");
@@ -107,8 +107,8 @@ int main() {
   	svr.Get(R"(/contact/age/(.*))", [&](const httplib::Request& req, httplib::Response& res) {
     	res.set_header("Access-Control-Allow-Origin","*");
 
-    	string type = req.matches[1];
-    	results = ctdb.findByAge(type);
+    	string age = req.matches[1];
+    	results = ctdb.findByAge(age);
     	string json = jsonResults(results);
     	cout << "type: " << json << endl;
     	res.set_content(json, "text/json");
