@@ -26,13 +26,15 @@ string contactEntry::text() {
 }
 
 string contactEntry::json() {
-	string result = "{\"ID\":\"" + ID + "\",";
-	result += "\"first\":\"" + first + "\",";
-	result += "\"last\":\"" + last + "\",";
-	result += "\"phone\":\"" + phone + "\",";
-	result += "\"type\":\"" + type + "\"}";
-        result += "\"email\":\"" + email + "\"}";
-        result += "\"age\":\"" + age + "\"}";
-	return result;
+    string result = "{\"ID\":\"" + ID + "\",";
+    result += "\"first\":\"" + first + "\",";
+    result += "\"last\":\"" + last + "\",";
+    result += "\"phone\":\"" + phone + "\",";
+    result += "\"type\":\"" + type + "\",";
+    result += "\"email\":\"" + email + "\",";
+    result += "\"age\":\"" + age + "\"}";
+    return result;
+}
+
 
 }
