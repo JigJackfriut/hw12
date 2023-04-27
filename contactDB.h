@@ -32,6 +32,7 @@ public:
     vector<contactEntry> find(string search);
     vector<contactEntry> findByFirst(string first);
     vector<contactEntry> findByLast(string last);
+    vector<contactEntry> findByPhone(string phone);
     vector<contactEntry> findByType(string type);
     vector<contactEntry> findByEmail(string email);
     vector<contactEntry> findByAge(string age);
