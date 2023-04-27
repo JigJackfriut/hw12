@@ -71,12 +71,9 @@ function processAdd(results) {
     document.getElementById("addfirst").value = "";
     document.getElementById("addlast").value = "";
     document.getElementById("addphone").value = "";
-    ------------------
     document.getElementById("addtype").value = "";
     document.getElementbyId("addemail").value= "";
     document.getElementById("addage").value = "";
-    
-    ------------------
     findMatches(" ");
 
 }
