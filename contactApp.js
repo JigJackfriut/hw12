@@ -73,7 +73,7 @@ function processAdd(results) {
     document.getElementById("addlast").value = "";
     document.getElementById("addphone").value = "";
     document.getElementById("addtype").value = "";
-    document.getElementbyId("addemail").value= "";
+    document.getElementById("addemail").value= "";
     document.getElementById("addage").value = "";
     findMatches(" ");
 
@@ -127,7 +127,7 @@ function updateContact() {
     console.log("Attempting to edit an entry:"+id); 
 
     fetch(baseUrl + '/contact/update/' + id + '/' + document.getElementById("editfirst").value 
-    		+ '/' + document.getElementById("editlast").value + '/' + document.getElementById("editphone").value + '/' + document.getElementbyId("edittype").innertext + '/' +
+    		+ '/' + document.getElementById("editlast").value + '/' + document.getElementById("editphone").value + '/' + document.getElementById("edittype").innertext + '/' +
 	  								document.getElementById("editemail").value+ '/' + document.getElementById("editage").value, {
                 method: 'get'
             })
