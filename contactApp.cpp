@@ -97,7 +97,7 @@ int main() {
     	res.set_header("Access-Control-Allow-Origin","*");
 
     	string type = req.matches[1];
-    	results = ctdb.findByEmail(email);
+    	results = ctdb.findByEmail(type);
     	string json = jsonResults(results);
     	cout << "type: " << json << endl;
     	res.set_content(json, "text/json");
@@ -108,7 +108,7 @@ int main() {
     	res.set_header("Access-Control-Allow-Origin","*");
 
     	string type = req.matches[1];
-    	results = ctdb.findByAge(age);
+    	results = ctdb.findByAge(type);
     	string json = jsonResults(results);
     	cout << "type: " << json << endl;
     	res.set_content(json, "text/json");
