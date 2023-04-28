@@ -83,7 +83,7 @@ function addContact() {
     console.log("Attempting to add an entry");
     console.log("Firstname:" + $('#addfirst').val());
     $('#searchresults').empty();
-    fetch(baseUrl + '/contact/add/' + $('#addfirst').val() + "/" + $('#addlast').val() + "/" + $('#addphone').val() + "/" + $('#addtype').text() + "/" + $('#addemail').text()+ "/" + $('#addage').text(), {
+    fetch(baseUrl + '/contact/add/' + $('#addfirst').val() + "/" + $('#addlast').val() + "/" + $('#addphone').val() + "/" + $('#addtype').val() + "/" + $('#addemail').val()+ "/" + $('#addage').val(), {
             method: 'get'
         })
         .then(response => response.json())
