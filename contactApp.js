@@ -105,9 +105,9 @@ function editContact(row) {
 	document.getElementById("editfirst").value = contactList[row]["first"];
 	document.getElementById("editlast").value = contactList[row]["last"];
 	document.getElementById("editphone").value = contactList[row]["phone"];
-	document.getElementById("edittype").innerText = contactList[row]["type"];
-	document.getElementById("editemail").innerText = contactList[row]["email"];
-	document.getElementById("editage").innerText = contactList[row]["age"];
+	document.getElementById("edittype").value = contactList[row]["type"];
+	document.getElementById("editemail").value = contactList[row]["email"];
+	document.getElementById("editage").value = contactList[row]["age"];
 
 	
 	
