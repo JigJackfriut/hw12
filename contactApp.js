@@ -127,7 +127,7 @@ function updateContact() {
     console.log("Attempting to edit an entry:"+id); 
 
     fetch(baseUrl + '/contact/update/' + id + '/' + document.getElementById("editfirst").value 
-    		+ '/' + document.getElementById("editlast").value + '/' + document.getElementById("editphone").value + '/' + document.getElementById("edittype").innertext + '/' +
+    		+ '/' + document.getElementById("editlast").value + '/' + document.getElementById("editphone").value + '/' + document.getElementById("edittype").value + '/' +
 	  								document.getElementById("editemail").value+ '/' + document.getElementById("editage").value, {
                 method: 'get'
             })
