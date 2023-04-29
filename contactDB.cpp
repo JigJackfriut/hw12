@@ -50,7 +50,7 @@ vector<contactEntry> contactDB::find(string search) {
     sql::ResultSet *res = stmnt->executeQuery(
 			"SELECT * FROM contacts WHERE Last like '%"+search+"%' OR "+
  "First like '%"+search+"%' OR " +
- "Type like '%"+search+"%')"
+ "Type like '%"+search+"%')")
 
     
     // Loop through and print results
