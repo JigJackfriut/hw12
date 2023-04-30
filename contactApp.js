@@ -25,11 +25,11 @@ $(document).ready(function() {
 // Build output table from comma delimited list
 function formatMatches(json) {
 
-    var result = '<table class="table table-success table-striped"><tr><th>First</th><th>Last</th><th>Phone</th><th>Type</th><th>Email</th><th>Age</th><th>Action</th></tr>';
+    var result = '<table class="table table-success table-striped""><tr><th>First</th><th>Last</th><th>email</th><th>age</th><th>Phone</th><th>Type</th><th>Action</th><tr>';
     json.forEach(function(entry, i) {
         result += "<tr><td class='first'>" + entry['first'] + "</td><td class='last'>" + entry['last'];
-        result += "</td><td class='phone'>" + entry['phone'] + "</td><td class='type'>" + entry['type'];
-		result += "</td><td class='email'>" + entry['email'] + "</td><td class='age'>" + entry['age'] + "</td>";
+        result += "</td><td class='email'>" + entry['email'] + "</td><td class='age'>" + entry['age'] + "</td>";
+        result += "</td><td class='phone'>" + entry['phone'] + "</td><td class='type'>" + entry['type'] + "</td>";
         result += "<td><button type='button' class='btn btn-primary btn-sm edit' data-bs-toggle='modal' data-bs-target='#editContact' ";
         result += "onclick=\"editContact(" + i + ")\">Edit</button> ";
         result += "<button type='button' class='btn btn-primary btn-sm ' onclick=\"deleteContact("+ entry['ID'] +")\">Delete</button></td></tr>";
@@ -38,7 +38,6 @@ function formatMatches(json) {
 
     return result;
 }
-
 
 function displayMatches(results) {
 
@@ -72,8 +71,7 @@ function processAdd(results) {
     document.getElementById("addfirst").value = "";
     document.getElementById("addlast").value = "";
     document.getElementById("addphone").value = "";
-    document.getElementById("addtype").value = "";
-    document.getElementById("addemail").value= "";
+    document.getElementById("addemail").value = "";
     document.getElementById("addage").value = "";
     findMatches(" ");
 
@@ -83,7 +81,7 @@ function addContact() {
     console.log("Attempting to add an entry");
     console.log("Firstname:" + $('#addfirst').val());
     $('#searchresults').empty();
-    fetch(baseUrl + '/contact/add/' + $('#addfirst').val() + "/" + $('#addlast').val() + "/" + $('#addphone').val() + "/" + $('#addtype').val() + "/" + $('#addemail').val()+ "/" + $('#addage').val(), {
+    fetch(baseUrl + '/contact/add/' + $('#addfirst').val() + "/" + $('#addlast').val() + "/" + $('#addphone').val() + "/" + $('#addtype').text()+ "/" + $('#addemail').val()+ "/" + $('#addage').val(), {
             method: 'get'
         })
         .then(response => response.json())
@@ -105,11 +103,9 @@ function editContact(row) {
 	document.getElementById("editfirst").value = contactList[row]["first"];
 	document.getElementById("editlast").value = contactList[row]["last"];
 	document.getElementById("editphone").value = contactList[row]["phone"];
-	document.getElementById("edittype").value = contactList[row]["type"];
-	document.getElementById("editemail").value = contactList[row]["email"];
-	document.getElementById("editage").value = contactList[row]["age"];
-
-	
+	document.getElementById("edittype").innerText = contactList[row]["type"];
+	document.getElementById("editemail").innerText = contactList[row]["email"];
+	document.getElementById("editage").innerText = contactList[row]["age"];
 	
 	//Save ID in modal
 	var modal = document.querySelector("#editContact");
@@ -127,8 +123,7 @@ function updateContact() {
     console.log("Attempting to edit an entry:"+id); 
 
     fetch(baseUrl + '/contact/update/' + id + '/' + document.getElementById("editfirst").value 
-    		+ '/' + document.getElementById("editlast").value + '/' + document.getElementById("editphone").value + '/' + document.getElementById("edittype").value + '/' +
-	  								document.getElementById("editemail").value+ '/' + document.getElementById("editage").value, {
+    		+ '/' + document.getElementById("editlast").value + '/' + document.getElementById("editphone").value + '/' + document.getElementById("edittype").innerText + '/' + document.getElementById("editemail").value+ '/' + document.getElementById("editage").value, {
                 method: 'get'
             })
         .then(alert("Record for " + document.getElementById("editfirst").value + ' ' + document.getElementById("editlast").value + " updated"))
@@ -158,5 +153,4 @@ function deleteContact(id) {
      findMatches(" ");
 
 }
-
 
