@@ -22,7 +22,7 @@
 
 #define DB_URL "jdbc:mariadb://localhost:3306/contacts"
 #define USER "root"
-#define PASS "newpassword"
+#define PASS "Altri@@12345"
 
 using namespace std;
 
