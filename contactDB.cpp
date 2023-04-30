@@ -21,7 +21,7 @@ contactDB::contactDB() {
     properties = my_properties;
  
     // Establish Connection
-    std::unique_ptr<sql::Connection> my_conn(driver->connect(db_url, properties))
+    std::unique_ptr<sql::Connection> my_conn(driver->connect(db_url, properties));
     
     // Check success
     if (!my_conn) {
