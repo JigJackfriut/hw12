@@ -93,30 +93,7 @@ int main() {
     	res.status = 200;
   	});  
   	
-  	svr.Get(R"(/contact/email/(.*))", [&](const httplib::Request& req, httplib::Response& res) {
-    	res.set_header("Access-Control-Allow-Origin","*");
-
-    	string email = req.matches[1];
-    	results = ctdb.findByEmail(email);
-    	string json = jsonResults(results);
-    	cout << "type: " << json << endl;
-    	res.set_content(json, "text/json");
-    	res.status = 200;
-  	});  
-  	
-  	svr.Get(R"(/contact/age/(.*))", [&](const httplib::Request& req, httplib::Response& res) {
-    	res.set_header("Access-Control-Allow-Origin","*");
-
-    	string age = req.matches[1];
-    	results = ctdb.findByAge(age);
-    	string json = jsonResults(results);
-    	cout << "type: " << json << endl;
-    	res.set_content(json, "text/json");
-    	res.status = 200;
-  	});  
-  	
-  	
-  	svr.Get(R"(/contact/add/(.*)/(.*)/(.*)/(.*))", [&](const httplib::Request& req, httplib::Response& res) {
+  	svr.Get(R"(/contact/add/(.*)/(.*)/(.*)/(.*)/(.*)/(.*))", [&](const httplib::Request& req, httplib::Response& res) {
     	res.set_header("Access-Control-Allow-Origin","*");
 
     	string first = req.matches[1];
@@ -131,7 +108,7 @@ int main() {
     	res.status = 200;
   	}); 	
  
-   	svr.Get(R"(/contact/update/(.*)/(.*)/(.*)/(.*)/(.*))", [&](const httplib::Request& req, httplib::Response& res) {
+   	svr.Get(R"(/contact/update/(.*)/(.*)/(.*)/(.*)/(.*)/(.*)/(.*))", [&](const httplib::Request& req, httplib::Response& res) {
     	res.set_header("Access-Control-Allow-Origin","*");
 
     	string ID = req.matches[1];
