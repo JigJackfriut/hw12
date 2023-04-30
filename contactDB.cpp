@@ -19,10 +19,9 @@ contactDB::contactDB() {
     sql::Properties my_properties({{"user", user}, {"password",pass}});
     // Save properties in object
     properties = my_properties;
-    cout << "Establish Connection to DB" << endl;
+ 
     // Establish Connection
-    std::unique_ptr<sql::Connection> my_conn(driver->connect(db_url, properties));
-    cout << "Done!" << endl;
+    std::unique_ptr<sql::Connection> my_conn(driver->connect(db_url, properties))
     
     // Check success
     if (!my_conn) {
