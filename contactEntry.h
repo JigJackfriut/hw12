@@ -8,10 +8,10 @@ using namespace std;
 class contactEntry {
 public:
      contactEntry();
-     contactEntry(sql::SQLString f, sql::SQLString l, sql::SQLString p, sql::SQLString t, sql::SQLString e, sql::SQLString a, sql::SQLString I);
+     contactEntry(sql::SQLString f, sql::SQLString l, sql::SQLString p, sql::SQLString t,sql::SQLString e,sql::SQLString a, sql::SQLString I);
      string text();
      string json();
-     
+
      string first;
      string last;
      string phone;
