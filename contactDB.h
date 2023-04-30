@@ -20,7 +20,7 @@
 #ifndef CONTACTDB_H
 #define CONTACTDB_H
 
-#define DB_URL "jdbc:mariadb://localhost:3306/contacts"
+#define DB_URL "jdbc:mariadb://localhost:3306/kenyon"
 #define USER "root"
 #define PASS "Altri@@12345"
 
