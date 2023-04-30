@@ -7,21 +7,22 @@
 
 
 contactDB::contactDB() {
-  	// Instantiate Driver
-  	driver = sql::mariadb::get_driver_instance();
+    // Instantiate Driver
+    driver = sql::mariadb::get_driver_instance();
   	
- 	// Configure Connection
-  	// The URL or TCP connection string format is
-  	// ``jdbc:mariadb://host:port/database``.
-  	sql::SQLString url(db_url);
+    // Configure Connection
+    // The URL or TCP connection string format is
+    // ``jdbc:mariadb://host:port/database``.
+    sql::SQLString url(db_url);
 
     // Use a properties map for the other connection options
-  	sql::Properties my_properties({{"user", user}, {"password",pass}});
-  	// Save properties in object
-  	properties = my_properties;
-
+    sql::Properties my_properties({{"user", user}, {"password",pass}});
+    // Save properties in object
+    properties = my_properties;
+    cout << "Establish Connection to DB" << endl;
     // Establish Connection
-  	std::unique_ptr<sql::Connection> my_conn(driver->connect(db_url, properties));
+    std::unique_ptr<sql::Connection> my_conn(driver->connect(db_url, properties));
+    cout << "Done!" << endl;
     
     // Check success
     if (!my_conn) {
@@ -49,15 +50,14 @@ vector<contactEntry> contactDB::find(string search) {
     // Execute query
     sql::ResultSet *res = stmnt->executeQuery(
 			"SELECT * FROM contacts WHERE Last like '%"+search+"%' OR "+
- "First like '%"+search+"%' OR " +
- "Type like '%"+search+"%')");
-
+    		 + "First like '%"+search+"%' OR " +
+    		 + "Type like '%"+search+"%'");
     
     // Loop through and print results
     while (res->next()) {
-    	contactEntry entry(res->getString("First"),res->getString("Last"), 
+    	contactEntry entry(res->getString("First"),res->getString("Last"),
 			res->getString("Phone"),res->getString("Type"),
-			res->getString("Email"),res->getString("Age"),
+			res->getString("email"),res->getString("age"),
 	    	res->getString("ID"));
 	    	
 	    list.push_back(entry);
@@ -86,8 +86,8 @@ vector<contactEntry> contactDB::findByLast(string last) {
     while (res->next()) {
     	contactEntry entry(res->getString("First"),res->getString("Last"),
 			res->getString("Phone"),res->getString("Type"),
-			res->getString("Email"),res->getString("Age"),
-	    	res->getString("ID"));
+	    			res->getString("email"),res->getString("age"),
+				res->getString("ID"));
 	    	
 	    list.push_back(entry);
 
@@ -115,45 +115,14 @@ vector<contactEntry> contactDB::findByFirst(string first) {
     while (res->next()) {
     	contactEntry entry(res->getString("First"),res->getString("Last"),
 			res->getString("Phone"),res->getString("Type"),
-			res->getString("Email"),res->getString("Age"),
-	    	res->getString("ID"));
+			res->getString("email"),res->getString("age"),
+			res->getString("ID"));
 	    	
 	    list.push_back(entry);
 
     }
     return list;
 }
-
-
-vector<contactEntry> contactDB::findByPhone(string phone) {
-	vector<contactEntry> list;
-	
-    // Make sure the connection is still valid
-    if (!conn) {
-   		cerr << "Invalid database connection" << endl;
-   		exit (EXIT_FAILURE);
-   	}	
-    // Create a new Statement
-	std::unique_ptr<sql::Statement> stmnt(conn->createStatement());
-    
-    // Execute query
-    sql::ResultSet *res = stmnt->executeQuery("SELECT * FROM contacts WHERE Phone like '%"+phone+"%'");
-    
-    // Loop through and print results
-    while (res->next()) {
-    	contactEntry entry(res->getString("First"),res->getString("Last"),
-			res->getString("Phone"),res->getString("Type"),
-			res->getString("Email"),res->getString("Age"),
-	    	res->getString("ID"));
-	    	
-	    list.push_back(entry);
-
-    }
-    return list;
-
-}
-
-
 
 vector<contactEntry> contactDB::findByType(string type) {
 	vector<contactEntry> list;
@@ -173,8 +142,8 @@ vector<contactEntry> contactDB::findByType(string type) {
     while (res->next()) {
     	contactEntry entry(res->getString("First"),res->getString("Last"),
 			res->getString("Phone"),res->getString("Type"),
-			res->getString("Email"),res->getString("Age"),
-	    	res->getString("ID"));
+			res->getString("email"),res->getString("age"),
+			res->getString("ID"));
 	    	
 	    list.push_back(entry);
 
@@ -183,66 +152,7 @@ vector<contactEntry> contactDB::findByType(string type) {
 
 }
 
-
-vector<contactEntry> contactDB::findByEmail(string email) {
-	vector<contactEntry> list;
-	
-    // Make sure the connection is still valid
-    if (!conn) {
-   		cerr << "Invalid database connection" << endl;
-   		exit (EXIT_FAILURE);
-   	}	
-    // Create a new Statement
-	std::unique_ptr<sql::Statement> stmnt(conn->createStatement());
-    
-    // Execute query
-    sql::ResultSet *res = stmnt->executeQuery("SELECT * FROM contacts WHERE Email like '%"+email+"%'");
-    
-    // Loop through and print results
-    while (res->next()) {
-    	contactEntry entry(res->getString("First"),res->getString("Last"),
-			res->getString("Phone"),res->getString("Type"),
-			res->getString("Email"),res->getString("Age"),
-	    	res->getString("ID"));
-	    	
-	    list.push_back(entry);
-
-    }
-    return list;
-
-}
-
-vector<contactEntry> contactDB::findByAge(string age) {
-	vector<contactEntry> list;
-	
-    // Make sure the connection is still valid
-    if (!conn) {
-   		cerr << "Invalid database connection" << endl;
-   		exit (EXIT_FAILURE);
-   	}	
-    // Create a new Statement
-	std::unique_ptr<sql::Statement> stmnt(conn->createStatement());
-    
-    // Execute query
-    sql::ResultSet *res = stmnt->executeQuery("SELECT * FROM contacts WHERE Age like '%"+age+"%'");
-    
-    // Loop through and print results
-    while (res->next()) {
-    	contactEntry entry(res->getString("First"),res->getString("Last"),
-			res->getString("Phone"),res->getString("Type"),
-			res->getString("Email"),res->getString("Age"),
-	    	res->getString("ID"));
-	    	
-	    list.push_back(entry);
-
-    }
-    return list;
-
-}
-
-
-
-void contactDB::addEntry(string first,string last,string phone, string type, string email, string age){
+void contactDB::addEntry(string first,string last,string phone, string type,string email,string age){
 
 	if (!conn) {
    		cerr << "Invalid database connection" << endl;
@@ -255,7 +165,7 @@ void contactDB::addEntry(string first,string last,string phone, string type, str
      	 type="Other";
   	}
   	
-  	stmnt->executeQuery("INSERT INTO contacts(First,Last,Phone,Type,Email,Age) VALUES ('"+first+"','"+last+"','"+phone+"','"+type+"','"+email+"','"+age+"')");
+  	stmnt->executeQuery("INSERT INTO contacts(First,Last,Phone,Type,email,age) VALUES ('"+first+"','"+last+"','"+phone+"','"+type+"','"+email+"','"+age+"')");
 }
 
 contactEntry contactDB::fetchEntry(string id){
@@ -276,13 +186,14 @@ contactEntry contactDB::fetchEntry(string id){
     if (res->next()) {
     	entry = contactEntry(res->getString("First"),res->getString("Last"),
 			res->getString("Phone"),res->getString("Type"),
-			res->getString("Email"),res->getString("Age"),
+			res->getString("email"),res->getString("age"),
+
 	    	res->getString("ID"));
     }
     return entry;
 }
 
-void contactDB::editEntry(string idnum,string first,string last,string phone, string type, string email, string age ){
+void contactDB::editEntry(string idnum,string first,string last,string phone, string type,string email,string age){
 	if (!conn) {
    		cerr << "Invalid database connection" << endl;
    		exit (EXIT_FAILURE);
@@ -294,7 +205,7 @@ void contactDB::editEntry(string idnum,string first,string last,string phone, st
      	 type="Other";
   	}
   	
-  	stmnt->executeQuery("UPDATE contacts SET First = '"+first+"', Last ='"+last+"', Phone ='"+phone+"', Type ='"+type+"', Email ='"+email+"', Age ='"+age+"' WHERE ID='"+idnum+"'");
+  	stmnt->executeQuery("UPDATE contacts SET First = '"+first+"', Last ='"+last+"', Phone ='"+phone+"', Type ='"+type+"', email ='"+email+"', age ='"+age+"' WHERE ID='"+idnum+"'");
   	
 }
 
