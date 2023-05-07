@@ -31,13 +31,12 @@ contactApp: contactApp.o contactDB.o contactEntry.o
 	$(CC) contactApp.o contactDB.o contactEntry.o -o contactApp -L/usr/local/lib -lmariadbcpp
 
 PutHTML:
-	cp contactApp.html /var/www/html/contactCpp/
-	cp contactApp.js /var/www/html/contactCpp/
-	cp contactApp.css /var/www/html/contactCpp/
+	cp contactApp.html /var/www/html/hw12/
+	cp contactApp.js /var/www/html/hw12/
+	cp contactApp.css /var/www/html/hw12/
 
 
 	echo "Current contents of your HTML directory: "
-	ls -l /var/www/html/contactCpp
-
+	ls -l /var/www/html/hw12
 clean:
 	rm -f *.o  contactApp testcontact
