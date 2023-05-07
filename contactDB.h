@@ -22,7 +22,7 @@
 
 #define DB_URL "jdbc:mariadb://localhost:3306/kenyon"
 #define USER "root"
-#define PASS "Altri@@12345"
+#define PASS "newpassword"
 
 using namespace std;
 
